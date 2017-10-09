@@ -173,18 +173,22 @@ const Carousel = createReactClass({
     return (
       <div
         className={['slider', this.props.className || ''].join(' ')}
-        ref="slider"
+        ref={slider => { this.slider = slider; }}
         style={assign(this.getSliderStyles(), this.props.style || {})}
       >
         <div
           className="slider-frame"
-          ref="frame"
+          ref={frame => { this.frame = frame; }}
           style={this.getFrameStyles()}
           {...this.getTouchEvents()}
           {...this.getMouseEvents()}
           onClick={this.handleClick}
         >
-          <ul className="slider-list" ref="list" style={this.getListStyles()}>
+          <ul
+            className="slider-list"
+            ref={list => { this.list = list; }}
+            style={this.getListStyles()}
+          >
             {children}
           </ul>
         </div>
@@ -775,7 +779,7 @@ const Carousel = createReactClass({
       slideHeight;
 
     slidesToScroll = props.slidesToScroll;
-    frame = this.refs.frame;
+    frame = this.frame;
     firstSlide = frame.childNodes[0].childNodes[0];
     if (firstSlide) {
       firstSlide.style.height = 'auto';
@@ -1068,7 +1072,7 @@ Carousel.ControllerMixin = {
   },
   setCarouselData(carousel) {
     var data = this.state.carousels;
-    data[carousel] = this.refs[carousel];
+    data[carousel] = this[carousel];
     this.setState({
       carousels: data,
     });

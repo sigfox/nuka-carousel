@@ -2,9 +2,13 @@
 
 describe('Carousel', function () {
 
+  require('core-js/es6/map');
+  require('core-js/es6/set');
+  
   var React = require('react');
   var ReactDOM = require('react-dom');
-  var TestUtils = require('react-addons-test-utils');
+  var TestUtils = require('react-dom/test-utils');
+
 
   var carousel, container, component;
 
